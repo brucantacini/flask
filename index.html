@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predição de Temperatura dos Trilhos</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>Previsão de Temperatura dos Trilhos</h1>
+        
+        <form id="predict-form">
+            <label for="data">Digite os dados para previsão (separados por vírgula):</label><br>
+            <input type="text" id="data" name="data" placeholder="Exemplo: 23.5, 75.0, 10.3" style="width: 300px;"><br><br>
+            <button type="submit">Fazer Previsão</button>
+        </form>
+        
+        <h2>Resultado:</h2>
+        <div id="prediction-result"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Ao submeter o formulário
+            $('#predict-form').submit(function (e) {
+                e.preventDefault();  // Impede o envio padrão do formulário
+
+                // Obtendo os dados do formulário
+                let data = $('#data').val().split(',').map(item => parseFloat(item.trim()));
+
+                // Verifica se os dados são válidos
+                if (data.length === 0 || data.some(isNaN)) {
+                    alert("Por favor, insira dados válidos.");
+                    return;
+                }
+
+                // Fazendo a requisição POST para a API Flask
+                $.ajax({
+                    url: 'http://127.0.0.1:5000/call_predict',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ data: data }),
+                    success: function (response) {
+                        // Exibindo o resultado da predição
+                        $('#prediction-result').html('<strong>Temperatura Previsão:</strong> ' + response.prediction);
+                    },
+                    error: function (error) {
+                        // Caso haja erro na requisição
+                        alert("Erro ao fazer a predição. Tente novamente.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
