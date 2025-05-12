@@ -24,7 +24,11 @@ def chama_modelo():
     try:
         # Realizar a predição
         pred = model.predict(data_array)[0]
-        return jsonify({"prediction": pred})
+        
+        # Formatar a previsão com 2 casas decimais e adicionar o símbolo °C
+        pred_formatada = f"{pred:.2f} °C"
+        
+        return jsonify({"prediction": pred_formatada})
     except Exception as e:
         print(f"Erro durante a predição: {str(e)}")
         return jsonify({"error": f"Erro ao fazer a predição: {str(e)}"}), 500
