@@ -7,5 +7,12 @@ Este projeto tem como objetivo realizar a predição da temperatura dos trilhos 
 - **Backend**: Uma API Flask que recebe dados de entrada e retorna a previsão da temperatura dos trilhos.
 - **Frontend**: Uma página HTML onde o usuário pode inserir os dados necessários e obter a previsão.
 
+## Pré-requisitos
 
+Antes de começar, você precisa ter o seguinte instalado:
+
+- Python 3.x
+- pip (gerenciador de pacotes do Python)
+
+Além disso, você precisa instalar as dependências do Python, que estão listadas no `requirements.txt`.
 
