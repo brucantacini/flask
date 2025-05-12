@@ -11,8 +11,21 @@
         <h1>Previsão de Temperatura dos Trilhos</h1>
         
         <form id="predict-form">
-            <label for="data">Digite os dados para previsão (separados por vírgula):</label><br>
-            <input type="text" id="data" name="data" placeholder="Exemplo: 23.5, 75.0, 10.3" style="width: 300px;"><br><br>
+            <label for="precipitacao">Precipitação (mm):</label><br>
+            <input type="number" id="precipitacao" name="precipitacao" placeholder="Exemplo: 23.5"><br><br>
+
+            <label for="temperatura_ar">Temperatura do Ar (°C):</label><br>
+            <input type="number" id="temperatura_ar" name="temperatura_ar" placeholder="Exemplo: 22.0"><br><br>
+
+            <label for="umidade_ar">Umidade do Ar (%):</label><br>
+            <input type="number" id="umidade_ar" name="umidade_ar" placeholder="Exemplo: 78.5"><br><br>
+
+            <label for="radiacao_solar">Radiação Solar (W/m²):</label><br>
+            <input type="number" id="radiacao_solar" name="radiacao_solar" placeholder="Exemplo: 450.0"><br><br>
+
+            <label for="velocidade_vento">Velocidade do Vento (m/s):</label><br>
+            <input type="number" id="velocidade_vento" name="velocidade_vento" placeholder="Exemplo: 3.2"><br><br>
+
             <button type="submit">Fazer Previsão</button>
         </form>
         
@@ -27,11 +40,17 @@
                 e.preventDefault();  // Impede o envio padrão do formulário
 
                 // Obtendo os dados do formulário
-                let data = $('#data').val().split(',').map(item => parseFloat(item.trim()));
+                let data = [
+                    parseFloat($('#precipitacao').val().trim()),
+                    parseFloat($('#temperatura_ar').val().trim()),
+                    parseFloat($('#umidade_ar').val().trim()),
+                    parseFloat($('#radiacao_solar').val().trim()),
+                    parseFloat($('#velocidade_vento').val().trim())
+                ];
 
                 // Verifica se os dados são válidos
-                if (data.length === 0 || data.some(isNaN)) {
-                    alert("Por favor, insira dados válidos.");
+                if (data.some(isNaN)) {
+                    alert("Por favor, insira dados válidos em todos os campos.");
                     return;
                 }
 
